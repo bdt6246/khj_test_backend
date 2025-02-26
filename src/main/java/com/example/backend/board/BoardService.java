@@ -20,4 +20,9 @@ public class BoardService {
     List<Board> boardList = boardRepository.findAll();
     return BoardDto.BoardListResp.from(boardList);
   }
+
+  public BoardDto.BoardInstanceResp read(Long boardIdx) {
+    Board board = boardRepository.findById(boardIdx).orElseThrow();
+    return  BoardDto.BoardInstanceResp.from(board);
+  }
 }
