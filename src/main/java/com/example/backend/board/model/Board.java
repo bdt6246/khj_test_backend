@@ -1,6 +1,6 @@
 package com.example.backend.board.model;
 
-import com.example.backend.comment.Comment;
+import com.example.backend.comment.model.Comment;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

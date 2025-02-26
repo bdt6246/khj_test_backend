@@ -1,4 +1,4 @@
-package com.example.backend.comment;
+package com.example.backend.comment.model;
 
 import com.example.backend.board.model.Board;
 import jakarta.persistence.*;

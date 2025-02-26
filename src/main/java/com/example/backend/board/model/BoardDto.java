@@ -1,7 +1,6 @@
 package com.example.backend.board.model;
 
-import com.example.backend.comment.Comment;
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.example.backend.comment.model.CommentDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,20 +27,6 @@ public class BoardDto {
     }
   }
 
-  //  @Getter
-//  @AllArgsConstructor
-//  @NoArgsConstructor
-//  @Builder
-//  public static class BoardListResp{
-//    private List<BoardInstanceResp> boardList;
-//
-//    public static BoardListResp from(List<Board> board) {
-//      return BoardListResp.builder()
-//          .boardList(board.stream().map(BoardDto.BoardInstanceResp::from).collect(Collectors.toList()))
-//          .build();
-//    }
-//  }
-
   @Getter
   @AllArgsConstructor
   @NoArgsConstructor
@@ -57,7 +42,7 @@ public class BoardDto {
           .idx(board.getIdx())
           .title(board.getTitle())
           .writer(board.getWriter())
-          .commentCnt((int) board.getComments().stream().map(CommentInstanceResp::from).count())
+          .commentCnt((int) board.getComments().stream().map(CommentDto.CommentInstanceResp::from).count())
           .build();
     }
   }
@@ -71,7 +56,7 @@ public class BoardDto {
     private String title;
     private String content;
     private String writer;
-    private List<CommentInstanceResp>comments = new ArrayList<>();
+    private List<CommentDto.CommentInstanceResp>comments = new ArrayList<>();
 
     public static BoardInstanceResp from (Board board){
       return BoardInstanceResp.builder()
@@ -79,23 +64,10 @@ public class BoardDto {
           .title(board.getTitle())
           .content(board.getContent())
           .writer(board.getWriter())
-          .comments(board.getComments().stream().map(CommentInstanceResp::from).collect(Collectors.toList()))
+          .comments(board.getComments().stream().map(CommentDto.CommentInstanceResp::from).collect(Collectors.toList()))
           .build();
     }
   }
 
-  @Getter
-  @AllArgsConstructor
-  @NoArgsConstructor
-  @Builder
-  public static class CommentInstanceResp{
-    private String content;
-    private String writer;
-    public static CommentInstanceResp from (Comment comment){
-      return CommentInstanceResp.builder()
-          .content(comment.getContent())
-          .writer(comment.getWriter())
-          .build();
-    }
-  }
+
 }
