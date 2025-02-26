@@ -1,10 +1,12 @@
 package com.example.backend.board.model;
 
+import com.example.backend.comment.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,16 +27,36 @@ public class BoardDto {
     }
   }
 
+  //  @Getter
+//  @AllArgsConstructor
+//  @NoArgsConstructor
+//  @Builder
+//  public static class BoardListResp{
+//    private List<BoardInstanceResp> boardList;
+//
+//    public static BoardListResp from(List<Board> board) {
+//      return BoardListResp.builder()
+//          .boardList(board.stream().map(BoardDto.BoardInstanceResp::from).collect(Collectors.toList()))
+//          .build();
+//    }
+//  }
+
   @Getter
   @AllArgsConstructor
   @NoArgsConstructor
   @Builder
   public static class BoardListResp{
-    private List<BoardInstanceResp> boardList;
+    private Long idx;
+    private String title;
+    private String writer;
+    private int commentCnt;
 
-    public static BoardListResp from(List<Board> board) {
+    public static BoardListResp from(Board board) {
       return BoardListResp.builder()
-          .boardList(board.stream().map(BoardDto.BoardInstanceResp::from).collect(Collectors.toList()))
+          .idx(board.getIdx())
+          .title(board.getTitle())
+          .writer(board.getWriter())
+          .commentCnt((int) board.getComments().stream().map(CommentInstanceResp::from).count())
           .build();
     }
   }
@@ -48,6 +70,7 @@ public class BoardDto {
     private String title;
     private String content;
     private String writer;
+    private List<CommentInstanceResp>comments = new ArrayList<>();
 
     public static BoardInstanceResp from (Board board){
       return BoardInstanceResp.builder()
@@ -55,6 +78,22 @@ public class BoardDto {
           .title(board.getTitle())
           .content(board.getContent())
           .writer(board.getWriter())
+          .comments(board.getComments().stream().map(CommentInstanceResp::from).collect(Collectors.toList()))
+          .build();
+    }
+  }
+
+  @Getter
+  @AllArgsConstructor
+  @NoArgsConstructor
+  @Builder
+  public static class CommentInstanceResp{
+    private String content;
+    private String writer;
+    public static CommentInstanceResp from (Comment comment){
+      return CommentInstanceResp.builder()
+          .content(comment.getContent())
+          .writer(comment.getWriter())
           .build();
     }
   }
