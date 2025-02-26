@@ -5,6 +5,8 @@ import com.example.backend.board.model.BoardDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BoardService {
@@ -12,5 +14,10 @@ public class BoardService {
 
   public void register(BoardDto.BoardRegisterReq dto) {
     boardRepository.save(dto.toEntity());
+  }
+
+  public BoardDto.BoardListResp list() {
+    List<Board> boardList = boardRepository.findAll();
+    return BoardDto.BoardListResp.from(boardList);
   }
 }
