@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 public class BoardDto {
 
+  @Getter
   public static class BoardRegisterReq {
     private String title;
     private String content;
