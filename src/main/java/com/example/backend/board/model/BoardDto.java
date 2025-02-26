@@ -1,6 +1,7 @@
 package com.example.backend.board.model;
 
 import com.example.backend.comment.Comment;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
