@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/board")
@@ -14,8 +16,8 @@ public class BoardController {
 
   @Operation(summary = "게시글 목록 조회", description = "등록된 게시글을 목록 형태로 확인하는 기능")
   @GetMapping("/list")
-  public ResponseEntity<BoardDto.BoardListResp> list() {
-    BoardDto.BoardListResp response = boardService.list();
+  public ResponseEntity<List<BoardDto.BoardListResp>> list() {
+    List<BoardDto.BoardListResp> response =  boardService.list();
     return ResponseEntity.ok(response);
   }
 
