@@ -1,10 +1,12 @@
 package com.example.backend.board.model;
 
+import com.example.backend.comment.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,6 +50,7 @@ public class BoardDto {
     private String title;
     private String content;
     private String writer;
+    private List<CommentInstanceResp>comments = new ArrayList<>();
 
     public static BoardInstanceResp from (Board board){
       return BoardInstanceResp.builder()
@@ -55,6 +58,22 @@ public class BoardDto {
           .title(board.getTitle())
           .content(board.getContent())
           .writer(board.getWriter())
+          .comments(board.getComments().stream().map(CommentInstanceResp::from).collect(Collectors.toList()))
+          .build();
+    }
+  }
+
+  @Getter
+  @AllArgsConstructor
+  @NoArgsConstructor
+  @Builder
+  public static class CommentInstanceResp{
+    private String content;
+    private String writer;
+    public static CommentInstanceResp from (Comment comment){
+      return CommentInstanceResp.builder()
+          .content(comment.getContent())
+          .writer(comment.getWriter())
           .build();
     }
   }
